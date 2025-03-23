@@ -1,12 +1,66 @@
+plugins:
+  - rubocop-performance
+  - rubocop-rake
+  - rubocop-rspec
+
 AllCops:
   TargetRubyVersion: 3.1
   NewCops: enable
   Exclude:
     - active_call-api.gemspec
     - bin/*
+    - 'vendor/**/*'
+    - 'gem/**/*'
+
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_fixed_indentation
+
+Layout/HashAlignment:
+  EnforcedHashRocketStyle: table
+  EnforcedColonStyle: table
+
+Lint/MissingSuper:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/*/**.rb
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Naming/MemoizedInstanceVariableName:
+  EnforcedStyleForLeadingUnderscores: required
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+# Disabled for now. Can't get it to work with the commented rules.
+Style/ClassAndModuleChildren:
+  Enabled: false
+  # EnforcedStyle: compact
+  # EnforcedStyleForClasses: compact
+  # EnforcedStyleForModules: nested
+  # Exclude:
+  #   - lib/active_call/api.rb
+
+Style/Documentation:
+  Enabled: false
 
 Style/StringLiterals:
   EnforcedStyle: single_quotes
 
 Style/StringLiteralsInInterpolation:
   EnforcedStyle: single_quotes
+
+Style/SymbolArray:
+  Enabled: false
