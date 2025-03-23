@@ -1,5 +1,9 @@
 AllCops:
   TargetRubyVersion: 3.1
+  NewCops: enable
+  Exclude:
+    - active_call-api.gemspec
+    - bin/*
 
 Style/StringLiterals:
   EnforcedStyle: single_quotes
