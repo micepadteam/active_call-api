@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors = ['Kobus Joubert']
   spec.email = ['kobus@translate3d.com']
 
-  spec.summary = 'Active Call API'
-  spec.description = 'Active Call API provides a standardized way to create service objects using REST API endpoints.'
+  spec.summary = 'Active Call - API'
+  spec.description = 'Active Call - API is an extension of Active Call that provides a standardized way to create service objects for REST API endpoints.'
   spec.homepage = 'https://github.com/kobusjoubert/active_call-api'
   spec.license = 'MIT'
   spec.required_ruby_version = '>= 3.1.0'
