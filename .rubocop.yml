@@ -19,6 +19,9 @@ Layout/HashAlignment:
   EnforcedHashRocketStyle: table
   EnforcedColonStyle: table
 
+Layout/LineLength:
+  Enabled: false
+
 Lint/MissingSuper:
   Enabled: false
 
@@ -28,11 +31,15 @@ Metrics/AbcSize:
 Metrics/BlockLength:
   Exclude:
     - spec/*/**.rb
+    - lib/active_call/api.rb
 
 Metrics/ClassLength:
   Enabled: false
 
 Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ModuleLength:
   Enabled: false
 
 Naming/MemoizedInstanceVariableName:

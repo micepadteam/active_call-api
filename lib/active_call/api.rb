@@ -8,7 +8,7 @@ require 'faraday/logging/color_formatter'
 loader = Zeitwerk::Loader.for_gem
 loader.ignore("#{__dir__}/error.rb")
 loader.collapse("#{__dir__}/api/concerns")
-loader.push_dir("#{__dir__}", namespace: ActiveCall)
+loader.push_dir(__dir__, namespace: ActiveCall)
 loader.setup
 
 require_relative 'error'
@@ -50,6 +50,9 @@ module ActiveCall::Api
       errors.add(:base, :client_error)                  and throw :abort if response.status >= 400
     end
 
+    private_class_method :api_validation_error
+    private_class_method :api_request_error
+
     private
 
     # Used in Enumerable subclasses when retrieving paginated lists from an API endpoint.
@@ -57,29 +60,7 @@ module ActiveCall::Api
   end
 
   class_methods do
-    EXCEPTION_MAPPING = {
-      validation_error:              ActiveCall::ValidationError,
-      request_error:                 ActiveCall::RequestError,
-      client_error:                  ActiveCall::ClientError,
-      server_error:                  ActiveCall::ServerError,
-      bad_request:                   ActiveCall::BadRequestError,
-      unauthorized:                  ActiveCall::UnauthorizedError,
-      forbidden:                     ActiveCall::ForbiddenError,
-      not_found:                     ActiveCall::NotFoundError,
-      not_acceptable:                ActiveCall::NotAcceptableError,
-      proxy_authentication_required: ActiveCall::ProxyAuthenticationRequiredError,
-      request_timeout:               ActiveCall::RequestTimeoutError,
-      conflict:                      ActiveCall::ConflictError,
-      unprocessable_entity:          ActiveCall::UnprocessableEntityError,
-      too_many_requests:             ActiveCall::TooManyRequestsError,
-      internal_server_error:         ActiveCall::InternalServerError,
-      not_implemented:               ActiveCall::NotImplementedError,
-      bad_gateway:                   ActiveCall::BadGatewayError,
-      service_unavailable:           ActiveCall::ServiceUnavailableError,
-      gateway_timeout:               ActiveCall::GatewayTimeoutError
-    }.freeze
-
-    # If you want to use your error classes instead, overwrite the `exception_mapping` class method.
+    # If you want to use your error classes instead, override the `exception_mapping` class method.
     #
     # ==== Examples
     #
@@ -98,7 +79,27 @@ module ActiveCall::Api
     #       end
     #
     def exception_mapping
-      EXCEPTION_MAPPING
+      {
+        validation_error:              ActiveCall::ValidationError,
+        request_error:                 ActiveCall::RequestError,
+        client_error:                  ActiveCall::ClientError,
+        server_error:                  ActiveCall::ServerError,
+        bad_request:                   ActiveCall::BadRequestError,
+        unauthorized:                  ActiveCall::UnauthorizedError,
+        forbidden:                     ActiveCall::ForbiddenError,
+        not_found:                     ActiveCall::NotFoundError,
+        not_acceptable:                ActiveCall::NotAcceptableError,
+        proxy_authentication_required: ActiveCall::ProxyAuthenticationRequiredError,
+        request_timeout:               ActiveCall::RequestTimeoutError,
+        conflict:                      ActiveCall::ConflictError,
+        unprocessable_entity:          ActiveCall::UnprocessableEntityError,
+        too_many_requests:             ActiveCall::TooManyRequestsError,
+        internal_server_error:         ActiveCall::InternalServerError,
+        not_implemented:               ActiveCall::NotImplementedError,
+        bad_gateway:                   ActiveCall::BadGatewayError,
+        service_unavailable:           ActiveCall::ServiceUnavailableError,
+        gateway_timeout:               ActiveCall::GatewayTimeoutError
+      }.freeze
     end
 
     # Using `call`.
@@ -148,8 +149,6 @@ module ActiveCall::Api
       end
     end
 
-    private
-
     def api_validation_error(exception)
       exception_mapping[:validation_error].new(exception.errors, exception.message)
     end
@@ -158,8 +157,6 @@ module ActiveCall::Api
       exception_for(exception.response, exception.errors, exception.message)
     end
   end
-
-  private
 
   # Subclasses must implement a `connection` method to hold a `Faraday::Connection` object.
   #
@@ -170,8 +167,6 @@ module ActiveCall::Api
   #   class YourGem::BaseService < ActiveCall::Base
   #     config_accessor :api_key, default: ENV['API_KEY'], instance_writer: false
   #     config_accessor :logger, default: Logger.new($stdout), instance_writer: false
-  #
-  #     private
   #
   #     def connection
   #       @_connection ||= Faraday.new do |conn|
@@ -222,7 +217,7 @@ module ActiveCall::Api
   # A common occurrence is when an API returns an HTTP status code of 400 with an error message in the body for anything
   # related to client errors, sometimes even for a resource that could not be found.
   #
-  # It is not required to overwrite any of these methods since all 4xx and 5xx errors add a `client_error` or
+  # It is not required to override any of these methods since all 4xx and 5xx errors add a `client_error` or
   # `server_error` type to the errors object, respectively.
   #
   # While not required, handling specific errors based on their actual meaning makes for a happier development
@@ -236,8 +231,6 @@ module ActiveCall::Api
   #
   #   class YourGem::BaseService < ActiveCall::Base
   #     ...
-  #
-  #     private
   #
   #     def not_found?
   #       response.status == 404 || (response.status == 400 && response.body['error_code'] == 'not_found')

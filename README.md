@@ -47,8 +47,6 @@ class YourGem::BaseService < ActiveCall::Base
   config_accessor :api_key, default: ENV['API_KEY'], instance_writer: false
   config_accessor :logger, default: Logger.new($stdout), instance_writer: false
 
-  private
-
   def connection
     @_connection ||= Faraday.new do |conn|
       conn.url_prefix = 'https://example.com/api/v1'
@@ -146,7 +144,7 @@ For any explicit HTTP status code not listed here, an `ActiveCall::ClientError` 
 
 ### Custom Exception Classes
 
-If you want to use your error classes instead, overwrite the `exception_mapping` class method.
+If you want to use your error classes instead, override the `exception_mapping` class method.
 
 ```ruby
 class YourGem::BaseService < ActiveCall::Base
@@ -197,8 +195,6 @@ exception.errors # => #<ActiveModel::Errors [#<ActiveModel::Error attribute=base
 ```ruby
 class YourGem::BaseService < ActiveCall::Base
   ...
-
-  private
 
   def bad_request?
     response.status == 400
@@ -261,7 +257,7 @@ These methods can be overridden to add more rules when an API does not respond w
 
 A common occurrence is when an API returns an HTTP status code of 400 with an error message in the body for anything related to client errors, sometimes even for a resource that could not be found.
 
-It is not required to overwrite any of these methods since all **4xx** and **5xx** errors add a `client_error` or `server_error` type to the errors object, respectively.
+It is not required to override any of these methods since all **4xx** and **5xx** errors add a `client_error` or `server_error` type to the errors object, respectively.
 
 While not required, handling specific errors based on their actual meaning makes for a happier development experience.
 
@@ -272,8 +268,6 @@ Perhaps the API does not always respond with a **422** HTTP status code for unpr
 ```ruby
 class YourGem::BaseService < ActiveCall::Base
   ...
-
-  private
 
   def not_found?
     response.status == 404 || (response.status == 400 && response.body['error_code'] == 'not_found')
