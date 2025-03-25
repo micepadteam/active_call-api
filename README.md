@@ -168,10 +168,11 @@ class YourGem::BaseService < ActiveCall::Base
         unprocessable_entity:          YourGem::UnprocessableEntityError,
         too_many_requests:             YourGem::TooManyRequestsError,
         internal_server_error:         YourGem::InternalServerError,
+        not_implemented:               YourGem::NotImplementedError,
         bad_gateway:                   YourGem::BadGatewayError,
         service_unavailable:           YourGem::ServiceUnavailableError,
         gateway_timeout:               YourGem::GatewayTimeoutError
-      }
+      }.freeze
     end
   end
 
@@ -238,6 +239,10 @@ class YourGem::BaseService < ActiveCall::Base
 
   def internal_server_error?
     response.status == 500
+  end
+
+  def not_implemented?
+    response.status == 501
   end
 
   def bad_gateway?
