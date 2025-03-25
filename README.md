@@ -1,5 +1,7 @@
 # Active Call - Api
 
+[![Gem Version](https://badge.fury.io/rb/active_call-api.svg?icon=si%3Arubygems)](https://badge.fury.io/rb/active_call-api)
+
 Active Call - API is an extension of [Active Call](https://rubygems.org/gems/active_call) that provides a standardized way to create service objects for REST API endpoints.
 
 Before proceeding, please review the [Active Call Usage](https://github.com/kobusjoubert/active_call?tab=readme-ov-file#usage) section. It takes just 55 seconds.
