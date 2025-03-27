@@ -18,8 +18,6 @@ module ActiveCall::Api
   extend ActiveSupport::Concern
 
   included do
-    include ActiveModel::Validations
-
     validate on: :response do
       throw :abort if response.is_a?(Enumerable)
 
