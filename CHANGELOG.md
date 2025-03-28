@@ -1,3 +1,7 @@
+## [0.1.2] - 2025-03-28
+
+- Fix for when included in a Rails app when getting `<NoMethodError: undefined method 'attributes'`.
+
 ## [0.1.1] - 2025-03-27
 
 - Remove `include ActiveModel::Validations`, it is already included with `active_call`.
