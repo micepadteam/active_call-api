@@ -302,3 +302,12 @@ end
 ActiveSupport.on_load(:i18n) do
   I18n.load_path << File.expand_path('api/locale/en.yml', __dir__)
 end
+
+ActiveSupport.on_load(:active_record) do
+  # Getting the following error when the gem is included in a Rails application with ActiveRecord.
+  #
+  #   <NoMethodError: undefined method `attributes' for an instance of YourGem::SomeResource::UpdateService>
+  #
+  # Struggling to get to the root of the issue, but this seems to help ¯\(°_o)/¯
+  ActiveCall::Api.include(ActiveCall::Api::Attributes)
+end
