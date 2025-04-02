@@ -11,6 +11,7 @@ en:
           conflict: 'Conflict'
           forbidden: 'Forbidden'
           gateway_timeout: 'Gateway Timeout'
+          gone: 'Gone'
           internal_server_error: 'Internal Server Error'
           not_found: 'Not Found'
           not_acceptable: 'Not Acceptable'

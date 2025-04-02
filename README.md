@@ -127,6 +127,7 @@ The following exceptions will get raised when using `call!` and the request was 
 |  **407**         | `ActiveCall::ProxyAuthenticationRequiredError` |
 |  **408**         | `ActiveCall::RequestTimeoutError`              |
 |  **409**         | `ActiveCall::ConflictError`                    |
+|  **410**         | `ActiveCall::GoneError`                        |
 |  **422**         | `ActiveCall::UnprocessableEntityError`         |
 |  **429**         | `ActiveCall::TooManyRequestsError`             |
 |  **5xx**         | `ActiveCall::ServerError`                      |
@@ -165,6 +166,7 @@ class YourGem::BaseService < ActiveCall::Base
         proxy_authentication_required: YourGem::ProxyAuthenticationRequiredError,
         request_timeout:               YourGem::RequestTimeoutError,
         conflict:                      YourGem::ConflictError,
+        gone:                          YourGem::GoneError,
         unprocessable_entity:          YourGem::UnprocessableEntityError,
         too_many_requests:             YourGem::TooManyRequestsError,
         internal_server_error:         YourGem::InternalServerError,
@@ -227,6 +229,10 @@ class YourGem::BaseService < ActiveCall::Base
 
   def conflict?
     response.status == 409
+  end
+
+  def gone?
+    response.status == 410
   end
 
   def unprocessable_entity?

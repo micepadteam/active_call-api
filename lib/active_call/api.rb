@@ -38,6 +38,7 @@ module ActiveCall::Api
       errors.add(:base, :proxy_authentication_required) and throw :abort if proxy_authentication_required?
       errors.add(:base, :request_timeout)               and throw :abort if request_timeout?
       errors.add(:base, :conflict)                      and throw :abort if conflict?
+      errors.add(:base, :gone)                          and throw :abort if gone?
       errors.add(:base, :unprocessable_entity)          and throw :abort if unprocessable_entity?
       errors.add(:base, :too_many_requests)             and throw :abort if too_many_requests?
 
@@ -90,6 +91,7 @@ module ActiveCall::Api
         proxy_authentication_required: ActiveCall::ProxyAuthenticationRequiredError,
         request_timeout:               ActiveCall::RequestTimeoutError,
         conflict:                      ActiveCall::ConflictError,
+        gone:                          ActiveCall::GoneError,
         unprocessable_entity:          ActiveCall::UnprocessableEntityError,
         too_many_requests:             ActiveCall::TooManyRequestsError,
         internal_server_error:         ActiveCall::InternalServerError,
@@ -268,6 +270,10 @@ module ActiveCall::Api
 
   def conflict?
     response.status == 409
+  end
+
+  def gone?
+    response.status == 410
   end
 
   def unprocessable_entity?
