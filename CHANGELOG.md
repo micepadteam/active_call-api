@@ -1,3 +1,7 @@
+## [0.1.3] - 2025-04-02
+
+- Added HTTP status code 410 Gone
+
 ## [0.1.2] - 2025-03-28
 
 - Fix for when included in a Rails app when getting `<NoMethodError: undefined method 'attributes'`.
