@@ -4,7 +4,7 @@
 
 Active Call - API is an extension of [Active Call](https://rubygems.org/gems/active_call) that provides a standardized way to create service objects for REST API endpoints.
 
-Before proceeding, please review the [Active Call Usage](https://github.com/kobusjoubert/active_call?tab=readme-ov-file#usage) section. It takes just 55 seconds.
+Before proceeding, please review the [Active Call Usage](https://github.com/activecall/active_call?tab=readme-ov-file#usage) section. It takes just 55 seconds.
 
 ## Installation
 
@@ -297,7 +297,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/kobusjoubert/active_call-api.
+Bug reports and pull requests are welcome on GitHub at https://github.com/activecall/active_call-api.
 
 ## License
 
