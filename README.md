@@ -2,9 +2,17 @@
 
 [![Gem Version](https://badge.fury.io/rb/active_call-api.svg?icon=si%3Arubygems)](https://badge.fury.io/rb/active_call-api)
 
-Active Call - API is an extension of [Active Call](https://rubygems.org/gems/active_call) that provides a standardized way to create service objects for REST API endpoints.
+Active Call - API is an extension of [Active Call](https://rubygems.org/gems/active_call) that provides a standardized way to build service objects for REST API endpoints.
 
 Before proceeding, please review the [Active Call Usage](https://github.com/activecall/active_call?tab=readme-ov-file#usage) section. It takes just 55 seconds.
+
+<div align="center">
+  <a href="https://platform45.com?utm_source=github&utm_content=active_call-api">
+    <picture>
+      <img src="https://github.com/user-attachments/assets/19fd40df-2ce9-4f30-8120-d53f3fbf9f07">
+    </picture>
+  </a>
+</div>
 
 ## Installation
 
